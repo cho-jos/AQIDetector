@@ -9,7 +9,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.waqi.info/"
-//private val API_TOKEN = System.getenv("AQICN_TOKEN")
 
 interface AqiAPIService {
     @GET("feed/here")
