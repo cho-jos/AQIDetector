@@ -11,10 +11,10 @@
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
-    <color name="aqi_color_green">#FF00e400</color>
-    <color name="aqi_color_yellow">#FFffff00</color>
-    <color name="aqi_color_orange">#FFff7e00</color>"
-    <color name="aqi_color_red">#FFff0000</color>
-    <color name="aqi_color_purple">#FF8f3f97</color>
-    <color name="aqi_color_maroon">#FF7e0023</color>
+    <color name="aqi_color_green">#128A53</color>
+    <color name="aqi_color_yellow">#FED829</color>
+    <color name="aqi_color_orange">#FC8628</color>"
+    <color name="aqi_color_red">#BD0027</color>
+    <color name="aqi_color_purple">#520087</color>
+    <color name="aqi_color_maroon">#69001A</color>
 </resources>

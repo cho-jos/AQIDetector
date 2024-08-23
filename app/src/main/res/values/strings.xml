@@ -3,4 +3,29 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
+    <!-- AQI Strings, source: https://aqicn.org/scale/ -->
+    <string name="aqi_pollution_good">Good</string>
+    <string name="aqi_health_implications_good">Air quality is considered satisfactory, and air pollution poses little or no risk</string>
+    <string name="aqi_caution_good">None</string>
+
+    <string name="aqi_pollution_moderate">Moderate</string>
+    <string name="aqi_health_implications_moderate">Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</string>
+    <string name="aqi_caution_moderate">Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</string>
+
+    <string name="aqi_pollution_unhealthy_sensitive">Unhealthy for Sensitive Groups</string>
+    <string name="aqi_health_implications_unhealthy_sensitive">Members of sensitive groups may experience health effects. The general public is not likely to be affected.</string>
+    <string name="aqi_caution_unhealthy_sensitive">Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</string>
+
+    <string name="aqi_pollution_unhealthy">Unhealthy</string>
+    <string name="aqi_health_implications_unhealthy">Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects</string>
+    <string name="aqi_caution_unhealthy">Active children and adults, and people with respiratory disease, such as asthma, should avoid prolonged outdoor exertion; everyone else, especially children, should limit prolonged outdoor exertion</string>
+
+    <string name="aqi_pollution_very_unhealthy">Very Unhealthy</string>
+    <string name="aqi_health_implications_very_unhealthy">Health warnings of emergency conditions. The entire population is more likely to be affected.</string>
+    <string name="aqi_caution_very_unhealthy">Active children and adults, and people with respiratory disease, such as asthma, should avoid all outdoor exertion; everyone else, especially children, should limit outdoor exertion.</string>
+
+    <string name="aqi_pollution_hazardous">Hazardous</string>
+    <string name="aqi_health_implications_hazardous">Health alert: everyone may experience more serious health effects</string>
+    <string name="aqi_caution_hazardous">Everyone should avoid all outdoor exertion</string>
+    <!-- end AQI Strings -->
 </resources>

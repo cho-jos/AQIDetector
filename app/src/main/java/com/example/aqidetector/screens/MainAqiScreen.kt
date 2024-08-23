@@ -25,10 +25,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aqidetector.R
+import com.example.aqidetector.models.AqiDetails
 import com.example.aqidetector.models.AqiViewModel
 
 @Composable
@@ -40,21 +42,52 @@ fun MainAqiScreen(
     val errorMessage = viewModel.errorMessage.collectAsState()
 
     var aqi by remember { mutableIntStateOf(-1) }
-    var aqiColor = when(aqi) {
-        in -1..0 -> Color.White
-        in 0..50 -> colorResource(R.color.aqi_color_green)
-        in 51..100 -> colorResource(R.color.aqi_color_yellow)
-        in 101..150 -> colorResource(R.color.aqi_color_orange)
-        in 151..200 -> colorResource(R.color.aqi_color_red)
-        in 201..300 -> colorResource(R.color.aqi_color_purple)
-        else -> colorResource(R.color.aqi_color_maroon)
+    val aqiDetails = AqiDetails(Color.White, "", "", "")
+    when (aqi) {
+        in -1..0 -> { /*keep initial color and blank info*/ }
+        in 0..50 -> {
+            aqiDetails.aqiColor = colorResource(R.color.aqi_color_green)
+            aqiDetails.airPollutionLevel = stringResource(R.string.aqi_pollution_good)
+            aqiDetails.healthImplications = stringResource(R.string.aqi_health_implications_good)
+            aqiDetails.cautionaryStatement = stringResource(R.string.aqi_caution_good)
+        }
+        in 51..100 -> {
+            aqiDetails.aqiColor = colorResource(R.color.aqi_color_yellow)
+            aqiDetails.airPollutionLevel = stringResource(R.string.aqi_pollution_moderate)
+            aqiDetails.healthImplications = stringResource(R.string.aqi_health_implications_moderate)
+            aqiDetails.cautionaryStatement = stringResource(R.string.aqi_caution_moderate)
+        }
+        in 101..150 -> {
+            aqiDetails.aqiColor = colorResource(R.color.aqi_color_orange)
+            aqiDetails.airPollutionLevel = stringResource(R.string.aqi_pollution_unhealthy_sensitive)
+            aqiDetails.healthImplications = stringResource(R.string.aqi_health_implications_unhealthy_sensitive)
+            aqiDetails.cautionaryStatement = stringResource(R.string.aqi_caution_unhealthy_sensitive)
+        }
+        in 151..200 -> {
+            aqiDetails.aqiColor = colorResource(R.color.aqi_color_red)
+            aqiDetails.airPollutionLevel = stringResource(R.string.aqi_pollution_unhealthy)
+            aqiDetails.healthImplications = stringResource(R.string.aqi_health_implications_unhealthy)
+            aqiDetails.cautionaryStatement = stringResource(R.string.aqi_caution_unhealthy)
+        }
+        in 201..300 -> {
+            aqiDetails.aqiColor = colorResource(R.color.aqi_color_purple)
+            aqiDetails.airPollutionLevel = stringResource(R.string.aqi_pollution_very_unhealthy)
+            aqiDetails.healthImplications = stringResource(R.string.aqi_health_implications_very_unhealthy)
+            aqiDetails.cautionaryStatement = stringResource(R.string.aqi_caution_very_unhealthy)
+        }
+        else -> {
+            aqiDetails.aqiColor = colorResource(R.color.aqi_color_maroon)
+            aqiDetails.airPollutionLevel = stringResource(R.string.aqi_pollution_hazardous)
+            aqiDetails.healthImplications = stringResource(R.string.aqi_health_implications_hazardous)
+            aqiDetails.cautionaryStatement = stringResource(R.string.aqi_caution_hazardous)
+        }
     }
 
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
-            .background(aqiColor)
+            .background(aqiDetails.aqiColor)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -76,7 +109,7 @@ fun MainAqiScreen(
             } else {
                 aqi = aqiReport.value?.data?.aqi ?: 0
                 val city = aqiReport.value?.data?.city?.name ?: ""
-                ReportRow(aqi, city)
+                ReportRow(aqi, city, aqiDetails)
             }
             Spacer(modifier = Modifier.padding(8.dp))
             Button(
@@ -90,7 +123,8 @@ fun MainAqiScreen(
 }
 
 @Composable
-fun ReportRow(aqi: Int, city: String) {
+fun ReportRow(aqi: Int, city: String, aqiDetails: AqiDetails) {
+    // trying to keep text readable
     val textColor = when(aqi) {
         in -1..100 -> Color.Black
         else -> Color.White
@@ -105,13 +139,11 @@ fun ReportRow(aqi: Int, city: String) {
             Text(text = "City: $city", color = textColor)
         }
         Spacer(modifier = Modifier.padding(8.dp))
-        Row {
-            Text("Description")
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text("Health Implications")
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text("Caution")
-        }
+        Text("Air Pollution Level: ${aqiDetails.airPollutionLevel}", color = textColor)
+        Spacer(modifier = Modifier.padding(8.dp))
+        Text("Health Implications: ${aqiDetails.healthImplications}", color = textColor)
+        Spacer(modifier = Modifier.padding(8.dp))
+        Text("Caution: ${aqiDetails.cautionaryStatement}", color = textColor)
     }
 }
 
