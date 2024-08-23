@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -76,8 +78,11 @@ fun MainAqiScreen(
                 val city = aqiReport.value?.data?.city?.name ?: ""
                 ReportRow(aqi, city)
             }
-            Button(onClick = { viewModel.getAqiReportHere() }) {
-                Text(text = "Detect AQI")
+            Button(
+                onClick = { viewModel.getAqiReportHere() },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+            ) {
+                Text(text = "Detect AQI", color = Color.White)
             }
         }
     }
