@@ -27,6 +27,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.aqidetector.R
@@ -141,9 +142,17 @@ fun ReportRow(aqi: Int, city: String, aqiDetails: AqiDetails) {
         Spacer(modifier = Modifier.padding(8.dp))
         Text("Air Pollution Level: ${aqiDetails.airPollutionLevel}", color = textColor)
         Spacer(modifier = Modifier.padding(8.dp))
-        Text("Health Implications: ${aqiDetails.healthImplications}", color = textColor)
+        Text(
+            "Health Implications: ${aqiDetails.healthImplications}",
+            color = textColor,
+            textAlign = TextAlign.Center
+        )
         Spacer(modifier = Modifier.padding(8.dp))
-        Text("Caution: ${aqiDetails.cautionaryStatement}", color = textColor)
+        Text(
+            "Caution: ${aqiDetails.cautionaryStatement}",
+            color = textColor,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
