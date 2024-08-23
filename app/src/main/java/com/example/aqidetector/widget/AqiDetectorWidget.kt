@@ -1,9 +1,12 @@
 package com.example.aqidetector.widget
 
 import android.content.Context
+import androidx.compose.runtime.Composable
 import androidx.glance.GlanceId
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.provideContent
+import androidx.glance.preview.ExperimentalGlancePreviewApi
+import androidx.glance.preview.Preview
 import androidx.glance.text.Text
 
 class AqiDetectorWidget: GlanceAppWidget() {
@@ -13,7 +16,14 @@ class AqiDetectorWidget: GlanceAppWidget() {
 
         provideContent {
             // create AppWidget here
-            Text(text = "Hello, World!")
+            WidgetContent()
         }
     }
+}
+
+@OptIn(ExperimentalGlancePreviewApi::class)
+@Preview(widthDp = 100, heightDp = 100)
+@Composable
+private fun WidgetContent() {
+    Text(text = "Hello, World")
 }
