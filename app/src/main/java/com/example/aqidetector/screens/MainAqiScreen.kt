@@ -1,6 +1,7 @@
 package com.example.aqidetector.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +15,10 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,11 +37,22 @@ fun MainAqiScreen(
     val isLoading = viewModel.isLoading.collectAsState()
     val errorMessage = viewModel.errorMessage.collectAsState()
 
+    var aqi by remember { mutableIntStateOf(-1) }
+    var aqiColor = when(aqi) {
+        in -1..0 -> Color.White
+        in 0..50 -> Color(0xFF00e400)
+        in 51..100 -> Color(0xFFffff00)
+        in 101..150 -> Color(0xFFff7e00)
+        in 151..200 -> Color(0xFFff0000)
+        in 201..300 -> Color(0xFF8f3f97)
+        else -> Color(0xFF7e0023)
+    }
+
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
-            //.background(aqiColor) // TODO: update color of box depending on aqi value
+            .background(aqiColor)
     ) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -56,7 +72,7 @@ fun MainAqiScreen(
                     )
                 }
             } else {
-                val aqi = aqiReport.value?.data?.aqi ?: 0
+                aqi = aqiReport.value?.data?.aqi ?: 0
                 val city = aqiReport.value?.data?.city?.name ?: ""
                 ReportRow(aqi, city)
             }
@@ -69,10 +85,14 @@ fun MainAqiScreen(
 
 @Composable
 fun ReportRow(aqi: Int, city: String) {
+    val textColor = when(aqi) {
+        in -1..100 -> Color.Black
+        else -> Color.White
+    }
     Row {
-        Text(text = "AQI: $aqi")
+        Text(text = "AQI: $aqi", color = textColor)
         Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "City: $city")
+        Text(text = "City: $city", color = textColor)
     }
 }
 
