@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
@@ -24,6 +23,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -42,12 +42,12 @@ fun MainAqiScreen(
     var aqi by remember { mutableIntStateOf(-1) }
     var aqiColor = when(aqi) {
         in -1..0 -> Color.White
-        in 0..50 -> Color(0xFF00e400)
-        in 51..100 -> Color(0xFFffff00)
-        in 101..150 -> Color(0xFFff7e00)
-        in 151..200 -> Color(0xFFff0000)
-        in 201..300 -> Color(0xFF8f3f97)
-        else -> Color(0xFF7e0023)
+        in 0..50 -> colorResource(R.color.aqi_color_green)
+        in 51..100 -> colorResource(R.color.aqi_color_yellow)
+        in 101..150 -> colorResource(R.color.aqi_color_orange)
+        in 151..200 -> colorResource(R.color.aqi_color_red)
+        in 201..300 -> colorResource(R.color.aqi_color_purple)
+        else -> colorResource(R.color.aqi_color_maroon)
     }
 
     Box(
@@ -78,6 +78,7 @@ fun MainAqiScreen(
                 val city = aqiReport.value?.data?.city?.name ?: ""
                 ReportRow(aqi, city)
             }
+            Spacer(modifier = Modifier.padding(8.dp))
             Button(
                 onClick = { viewModel.getAqiReportHere() },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
@@ -94,10 +95,23 @@ fun ReportRow(aqi: Int, city: String) {
         in -1..100 -> Color.Black
         else -> Color.White
     }
-    Row {
-        Text(text = "AQI: $aqi", color = textColor)
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row {
+            Text(text = "AQI: $aqi", color = textColor)
+            Spacer(modifier = Modifier.padding(8.dp))
+            Text(text = "City: $city", color = textColor)
+        }
         Spacer(modifier = Modifier.padding(8.dp))
-        Text(text = "City: $city", color = textColor)
+        Row {
+            Text("Description")
+            Spacer(modifier = Modifier.padding(8.dp))
+            Text("Health Implications")
+            Spacer(modifier = Modifier.padding(8.dp))
+            Text("Caution")
+        }
     }
 }
 

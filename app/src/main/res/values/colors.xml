@@ -11,4 +11,10 @@
     <color name="light_blue_200">#FF81D4FA</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
+    <color name="aqi_color_green">#FF00e400</color>
+    <color name="aqi_color_yellow">#FFffff00</color>
+    <color name="aqi_color_orange">#FFff7e00</color>"
+    <color name="aqi_color_red">#FFff0000</color>
+    <color name="aqi_color_purple">#FF8f3f97</color>
+    <color name="aqi_color_maroon">#FF7e0023</color>
 </resources>
