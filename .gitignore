@@ -8,4 +8,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-.env
+app/assets/*
+apiKeys.properties
