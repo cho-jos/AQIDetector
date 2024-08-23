@@ -134,11 +134,17 @@ fun ReportRow(aqi: Int, city: String, aqiDetails: AqiDetails) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row {
-            Text(text = "AQI: $aqi", color = textColor)
-            Spacer(modifier = Modifier.padding(8.dp))
-            Text(text = "City: $city", color = textColor)
-        }
+        Text(
+            text = "AQI: $aqi",
+            color = textColor,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+        Text(
+            text = "City: $city",
+            color = textColor,
+            textAlign = TextAlign.Center
+        )
         Spacer(modifier = Modifier.padding(8.dp))
         Text("Air Pollution Level: ${aqiDetails.airPollutionLevel}", color = textColor)
         Spacer(modifier = Modifier.padding(8.dp))
