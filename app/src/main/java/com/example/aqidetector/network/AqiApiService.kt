@@ -1,29 +1,30 @@
 package com.example.aqidetector.network
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
+import com.example.aqidetector.models.AqiReportModel
+import okhttp3.OkHttpClient
+import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.waqi.info/"
 //private val API_TOKEN = System.getenv("AQICN_TOKEN")
 
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
-    .baseUrl(BASE_URL)
-    .build()
-
-// create() on Retrofit objects is expensive. the app needs only one instance of the
-// Retrofit API service, so expose the service to the rest of the app using object declaration
-object AqiApi {
-    val retrofitService: AqiApiService by lazy {
-        retrofit.create(AqiApiService::class.java)
-    }
+interface AqiAPIService {
+    @GET("feed/here")
+    suspend fun getAqiHere(
+        @Query("token") token: String
+    ): Response<AqiReportModel>
 }
 
-interface AqiApiService {
-    @GET("/feed/here/")
-    suspend fun getAqiHere(@Query("token") API_TOKEN: String): AqiReport
+// in order to have a complete Retrofit client,
+// we need to instantiate Retrofit and associate with out API service
+fun getRetrofitClient(): AqiAPIService {
+    val client = Retrofit.Builder()
+        .baseUrl(BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .client(OkHttpClient())
+        .build()
+    return client.create(AqiAPIService::class.java)
 }
