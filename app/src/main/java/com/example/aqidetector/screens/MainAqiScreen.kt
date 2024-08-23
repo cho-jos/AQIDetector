@@ -42,10 +42,6 @@ fun MainAqiScreen(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Button(onClick = { viewModel.getAqiReportHere() }) {
-                Text(text = "Detect AQI")
-            }
-
             if (errorMessage.value != null) {
                 ErrorState()
             } else if (isLoading.value) {
@@ -55,7 +51,7 @@ fun MainAqiScreen(
                 ) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(200.dp),
-                        color = Color.Blue,
+                        color = Color.Yellow,
                         trackColor = Color.Red
                     )
                 }
@@ -63,6 +59,9 @@ fun MainAqiScreen(
                 val aqi = aqiReport.value?.data?.aqi ?: 0
                 val city = aqiReport.value?.data?.city?.name ?: ""
                 ReportRow(aqi, city)
+            }
+            Button(onClick = { viewModel.getAqiReportHere() }) {
+                Text(text = "Detect AQI")
             }
         }
     }
